@@ -1,0 +1,8 @@
+
+public class Song {
+	
+	int channelToMonitor;
+	int[] notes;
+	
+
+}

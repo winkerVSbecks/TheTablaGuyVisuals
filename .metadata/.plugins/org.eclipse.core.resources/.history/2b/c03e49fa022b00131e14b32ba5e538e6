@@ -1,0 +1,31 @@
+package processingTest;
+
+import processing.core.*;
+
+public class MainApp extends PApplet {
+	 
+    float theta = 0;
+ 
+    public void setup() {
+        size(640, 480, P3D);
+    }
+ 
+    public void draw() {
+        background(225);
+        float speed = random(0.01, 0.05);
+        theta += speed;
+        
+        fill(200);
+        stroke(175);
+        pushMatrix();
+        translate(width * 0.5f, height * 0.5f, 0);
+        rotateY(theta);
+        rotateX(theta);
+        box(100);
+        popMatrix();
+    }
+    
+    public static void main(String args[]) {
+      PApplet.main(new String[] { /*"--present",*/ "processingTest.MainApp" });
+    }
+}

@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/.metadata/.plugins/org.eclipse.jdt.core
+710796054.index
+444030215.index
+2157154252.index

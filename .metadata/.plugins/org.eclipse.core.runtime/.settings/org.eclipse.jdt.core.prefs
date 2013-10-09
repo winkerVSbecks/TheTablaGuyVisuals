@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.classpathVariable.JRE_LIB=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar
+org.eclipse.jdt.core.classpathVariable.JRE_SRC=
+org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.6
+org.eclipse.jdt.core.compiler.compliance=1.6
+org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+org.eclipse.jdt.core.compiler.source=1.6
+org.eclipse.jdt.core.userLibrary.Dependencies=<?xml version\="1.0" encoding\="UTF-8"?>\n<userlibrary systemlibrary\="false" version\="2">\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/libs/controlP5.jar">\n\t\t<attributes>\n\t\t\t<attribute name\="javadoc_location" value\="file\:/Users/winkerVSbecks/Documents/Processing/libraries/controlP5/reference/"/>\n\t\t</attributes>\n\t</archive>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/libs/oscP5.jar">\n\t\t<attributes>\n\t\t\t<attribute name\="javadoc_location" value\="file\:/Users/winkerVSbecks/Documents/Processing/libraries/oscP5/documentation/"/>\n\t\t</attributes>\n\t</archive>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/libs/themidibus.jar">\n\t\t<attributes>\n\t\t\t<attribute name\="javadoc_location" value\="file\:/Users/winkerVSbecks/Documents/Processing/libraries/themidibus/reference/"/>\n\t\t</attributes>\n\t</archive>\n</userlibrary>\n
+org.eclipse.jdt.core.userLibrary.ProcessingCore=<?xml version\="1.0" encoding\="UTF-8"?>\n<userlibrary systemlibrary\="false" version\="2">\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/core.jar">\n\t\t<attributes>\n\t\t\t<attribute name\="javadoc_location" value\="http\://processing.org/reference/javadoc/core/"/>\n\t\t</attributes>\n\t</archive>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/gluegen-rt-natives-macosx-universal.jar"/>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/gluegen-rt.jar"/>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/jogl-all-natives-macosx-universal.jar"/>\n\t<archive path\="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/jogl-all.jar"/>\n</userlibrary>\n
+org.eclipse.jdt.core.userLibrary.midibus=<?xml version\="1.0" encoding\="UTF-8"?>\n<userlibrary systemlibrary\="false" version\="2">\n\t<archive path\="/Users/winkerVSbecks/Documents/Processing/libraries/themidibus/library/themidibus.jar">\n\t\t<attributes>\n\t\t\t<attribute name\="javadoc_location" value\="file\:/Users/winkerVSbecks/Documents/Processing/libraries/themidibus/reference/"/>\n\t\t</attributes>\n\t</archive>\n</userlibrary>\n

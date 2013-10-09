@@ -1,0 +1,37 @@
+import processing.core.PApplet;
+
+public class Key {
+	PApplet parent;
+	float ampStart, ampEnd, ampNow;
+	float attack, sustain;
+	boolean isNoteOn;
+	int index;
+	float x, y, h;
+	
+	public Key(PApplet _parent, int _index) {
+        parent = _parent;
+        index = _index;
+        int ii = index+1;
+        float res = parent.width/14.0f;
+        x = index*res;
+        y = 0;
+        h = 50;
+    }
+	
+	public void update(float amplitude) {
+		// update midi, amp, attack and sustain
+		ampNow = amplitude;
+		if (isNoteOn) {
+			h = PApplet.map(ampNow, 0.0f, 1.0f, 20.0f, 250.0f);
+		} else {
+			h = Math.round(b);
+			if(h>10) { h--; }
+		}
+		render();		
+	}
+ 
+    private void render() {
+    	parent.fill(220, 50, 47);
+        parent.rect(x, y, b, b);
+    }
+}

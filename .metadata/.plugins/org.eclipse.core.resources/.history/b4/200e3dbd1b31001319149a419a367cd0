@@ -1,0 +1,15 @@
+
+public class Song {
+	
+	int channel;
+	int[] notes;
+	
+	
+	public Song(MainApp _parent, int _index) {
+		
+		
+		
+	}
+	
+
+}

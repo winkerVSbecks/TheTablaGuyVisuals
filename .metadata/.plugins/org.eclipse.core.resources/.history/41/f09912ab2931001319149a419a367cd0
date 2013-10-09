@@ -1,0 +1,55 @@
+public class Note {
+	float ampStart, ampEnd, ampNow;
+	float attack, sustain;
+	boolean isOn;
+	int fStart, fEnd;
+	MainApp p;
+	
+	public Note(MainApp _p) {
+		p = _p;
+    }
+	
+	public float getAttack() {
+		return this.attack;
+	}
+	
+	public float getSustain() {
+		return this.sustain;
+	}
+	
+	public void on() {
+		// handle note on
+		isOn = true;
+		ampStart = p.amplitude;
+		fStart = p.frameCount;
+	}
+	
+	public void off() {
+		// handle note off
+		isOn = false;
+		ampEnd = p.amplitude;
+		fEnd = p.frameCount;
+		sustain = Math.abs(ampStart-ampEnd)/(fEnd-fStart);
+	}
+	
+	public void update() {
+		// update midi, amp, attack and sustain
+		ampNow = p.amplitude;
+		if (isOn) {
+			attack = PApplet.map(ampNow, 0.0f, 1.0f, 20.0f, 150.0f);
+		} else {
+			if (!p.useSustain) {
+				b = Math.round(b);
+				if(b>10) { b--; }
+			} else {
+				fadeOut(b, 10);
+			}
+		}
+		if (doRenderGrid) render();		
+	}
+	
+	private void fadeOut(float start, float target) {
+		b = target - (start*sustain);
+		if (b <= target) b = target;
+	}
+}

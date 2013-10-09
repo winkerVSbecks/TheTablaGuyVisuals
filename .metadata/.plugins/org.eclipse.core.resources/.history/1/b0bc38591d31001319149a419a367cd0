@@ -1,0 +1,18 @@
+
+public class Song {
+	
+	int c;
+	int[] notes;
+	MainApp p;
+	
+	
+	public Song(MainApp _p, int[] _notes, int _c) {
+		p = _p;
+		notes = _notes;
+		c = _c;
+		
+		
+	}
+	
+
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="PreferencesImportWizard">
+		<item value="/Users/winkerVSbecks/Desktop/theme-1013.epf" key=""/>
+		<list key="WizardPreferencesExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="/Users/winkerVSbecks/Desktop/theme-833.epf"/>
+			<item value="/Users/winkerVSbecks/Desktop/theme-1855.epf"/>
+			<item value="/Users/winkerVSbecks/Desktop/theme-52.epf"/>
+			<item value="/Users/winkerVSbecks/Desktop/tomorrow-theme-master/Eclipse/Tomorrow-Night.epf"/>
+			<item value="/Users/winkerVSbecks/Desktop/theme-1115.epf"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.internal.QuickAccess">
+		<item value="900" key="dialogWidth"/>
+		<item value="563" key="dialogHeight"/>
+		<list key="orderedProviders">
+			<item value="org.eclipse.ui.commands"/>
+		</list>
+		<list key="textArray">
+			<item value="present"/>
+		</list>
+		<list key="orderedElements">
+			<item value="org.eclipse.egit.ui.RepositoriesToggleBranchHierarchy"/>
+		</list>
+		<list key="textEntries">
+			<item value="1"/>
+		</list>
+	</section>
+	<section name="WorkbenchPreferenceDialogSettings">
+		<item value="0" key="DIALOG_Y_ORIGIN"/>
+		<item value="0" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="InstallationDialogSettings">
+		<item value="702" key="DIALOG_WIDTH"/>
+		<item value="-230" key="DIALOG_Y_ORIGIN"/>
+		<item value="652" key="DIALOG_HEIGHT"/>
+		<item value="-86" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.preferences.keysPreferencePage">
+		<item value="true" key="uncategorizedFilter"/>
+		<item value="true" key="internalFilter"/>
+		<item value="true" key="actionSetFilter"/>
+	</section>
+	<section name="ImportExportAction">
+		<item value="org.eclipse.ui.wizards.import.Preferences" key="ImportExportPage.STORE_SELECTED_IMPORT_WIZARD_ID"/>
+		<item value="org.eclipse.jdt.internal.ui.fatjarpackager.JarPackageWizard" key="ImportExportPage.STORE_SELECTED_EXPORT_WIZARD_ID"/>
+		<list key="ImportExportPage.STORE_EXPANDED_IMPORT_CATEGORIES">
+			<item value="org.eclipse.ui.Basic"/>
+		</list>
+		<list key="ImportExportPage.STORE_EXPANDED_EXPORT_CATEGORIES">
+			<item value="org.eclipse.jdt.ui.Java"/>
+		</list>
+	</section>
+</section>

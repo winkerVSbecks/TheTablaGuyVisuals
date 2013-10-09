@@ -1,0 +1,60 @@
+import processing.core.PApplet;
+
+public class Note {
+	PApplet parent;
+	float ampStart, ampEnd, ampNow;
+	float attack, sustain;
+	boolean isNoteOn;
+	int index;
+	float x, y, b;
+	
+	public Note(PApplet _parent, int _index) {
+        parent = _parent;
+        index = _index;
+        int ii = index+1;
+        float res = parent.width/12.0f;
+        x = ii*res % (parent.width-res);
+        y = ( (ii*res - x) / (float)(parent.width-res) ) * res;
+        y+=res/2;
+        b = 10;
+    }
+	
+	public float getAttack() {
+		return attack;
+	}
+	
+	public float getSustain() {
+		return sustain;
+	}
+	
+	public void update(float amplitude) {
+		// update midi, amp, attack and sustain
+		ampNow = amplitude;
+		if (isNoteOn) {
+			b = PApplet.map(ampNow, 0.0f, 1.0f, 20.0f, 250.0f);
+		} else {
+			b = Math.round(b);
+			if(b>10) { b--; }
+		}
+		System.out.println(ampNow+" "+isNoteOn);
+		System.out.println("----");
+//		render();		
+	}
+	
+	public void on(float ampIn) {
+		// handle note on
+		isNoteOn = true;
+		ampStart = ampIn;
+	}
+	
+	public void off(float ampIn) {
+		// handle note off
+		isNoteOn = false;
+		ampEnd = ampIn;
+	}
+ 
+    private void render() {
+    	parent.fill(220, 50, 47);
+        parent.rect(x, y, b, b);
+    }
+}

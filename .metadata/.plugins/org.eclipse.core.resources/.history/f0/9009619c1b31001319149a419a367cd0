@@ -1,0 +1,9 @@
+
+public class Song {
+	
+	int channel;
+	int[] notes;
+	
+	
+
+}

@@ -1,0 +1,41 @@
+import processing.core.PApplet;
+import themidibus.*;
+
+public class Song implements SimpleMidiListener {
+	
+	int t;
+	int[] notes;
+	MainApp p;
+	
+	
+	public Song(MainApp _p, int[] _notes, int _t) {
+		p = _p;
+		notes = _notes;
+		t = _t;
+	}
+
+
+	@Override
+	public void controllerChange(int channel, int number, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void noteOff(int channel, int pitch, int velocity) {
+		// TODO Auto-generated method stub
+		notes[pitch].on();
+	}
+
+
+	@Override
+	public void noteOn(int channel, int pitch, int velocity) {
+		// TODO Auto-generated method stub
+		notes[pitch].on();
+	}
+	
+	
+	
+
+}
