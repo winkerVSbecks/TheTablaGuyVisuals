@@ -52,8 +52,7 @@ public class MainApp extends PApplet {
 				1));
         
         // Choose initial track to monitor
-        song = songs.get(activeSong);
-        trackToMonitor = song.t;
+        trackToMonitor = songs.get(activeSong).t;
     } 
     
     //**********************************************************
@@ -66,12 +65,12 @@ public class MainApp extends PApplet {
 	    	notes[i].update();
 		}
 	    
-	    song.draw();
+    	songs.get(activeSong).draw(); 
     }
     
     
     public void changeSong() {
-    	song = songs.get(activeSong);
+    	
     }
     
     

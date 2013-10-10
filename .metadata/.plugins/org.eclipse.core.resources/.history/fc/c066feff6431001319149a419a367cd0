@@ -17,15 +17,16 @@ public class Song {
 		t = _t;
 		clusters = new ArrayList<Cluster>();
 		for (int i = 0; i < range.length; i++) {
-			Note note = notes[range[i]];
-			clusters.add(new Cluster(p, note));
+			Note note = notes.get(range[i]);
 		}
 	}
 	
 	
 	public void draw() {
-		for(Cluster cluster: clusters) {
-			cluster.draw();
+		for (int i = 0; i < range.length; i++) {
+			int noteToCheck = range[i];
 		}
 	}
+	
+
 }

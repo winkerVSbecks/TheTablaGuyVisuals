@@ -24,8 +24,11 @@ public class Song {
 	
 	
 	public void draw() {
-		for(Cluster cluster: clusters) {
-			cluster.draw();
-		}
+		for (Cluster cluster: clusters) {
+		    cluster.draw();
+		  }
+
 	}
+	
+
 }
