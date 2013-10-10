@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import processing.core.PApplet;
+import processing.core.PConstants;
+
+public class Cluster {
+	
+	Note note;
+	PApplet p;
+	ArrayList<Pyramid> pyramids = new ArrayList<Pyramid> ();
+	int NUMSHAPES = 12; 
+	
+	public Cluster(PApplet _p, Note _note) {
+		p = _p;
+		note = _note;
+		for (int i=0; i<NUMSHAPES; i++) {
+		    float r = p.random(25, 200);
+		    float f = p.random(2, 5);
+		    pyramids.add( new Pyramid(p, f*r, r) );
+		}
+	}
+	
+	public void draw() {
+		float d = PApplet.map(note.getAttack(), 0.0f, 1.0f, 50.0f, 150.0f);
+		p.noStroke();
+		p.fill(255, 0, 0);
+		p.ellipse(p.width/2, p.height/2, d, d);	
+		
+		p.perspective(PConstants.PI/3.0, (float) p.width/p.height, 1, 1000000); // perspective to see close shapes
+		// update and display all the shapes
+		for (Pyramid p : shapes) {
+			p.update();
+		    p.display();
+		}
+	}
+
+}

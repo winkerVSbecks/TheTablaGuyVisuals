@@ -1,7 +1,23 @@
+/**********************************************************************************************
+
+ 	Basically a handler for each MIDI note coming in from Ableton.
+ 	
+ 	The note gives access to:
+ 	 - Is note on or off
+ 	 - Attack: based on the amplitude from the chosen audio channel (0 - 1)
+ 	 - Sustain: time needed to fade out once the note turns off
+ 	   
+ 	 Sustain can be handles in two ways:
+ 	 	- Measuring amp. and frame count values on note on and note off. Then calculating the
+ 	 	  velocity as: (delta amplitude)/(delta frame-count)
+ 	 	- Simple fade-out at a constant velocity Ð independent of the amp change.
+ 	 	
+**********************************************************************************************/	
+
 public class Note {
 	float ampStart, ampEnd;
 	int fStart, fEnd;
-	float attack, sustain;
+	private float attack, sustain;
 	boolean isOn;
 	MainApp p;
 	
@@ -17,23 +33,23 @@ public class Note {
 		return this.sustain;
 	}
 	
+	// Handle MIDI note on
 	public void on() {
-		// handle note on
 		isOn = true;
 		ampStart = p.amplitude;
 		fStart = p.frameCount;
 	}
 	
+	// Handle MIDI note off
 	public void off() {
-		// handle note off
 		isOn = false;
 		ampEnd = p.amplitude;
 		fEnd = p.frameCount;
 		sustain = Math.abs(ampStart-ampEnd)/(fEnd-fStart);
 	}
 	
+	// Update attack and sustain values
 	public void update() {
-		// update midi, amp, attack and sustain
 		if (isOn) {
 			attack = p.amplitude;
 		} else {
@@ -47,8 +63,10 @@ public class Note {
 		}
 	}
 	
+	// Use fade out instead of calculated sustain
 	private void fadeOut(float start) {
 		attack = 0 - (start*sustain);
 		if (attack <= 0) attack = 0;
 	}
+	
 }

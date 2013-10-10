@@ -1,4 +1,11 @@
-import java.util.ArrayList;
+/***********************************************
+ 	The Tabla Guy Visuals
+ 	by Varun Vachhar (Oct 2013)
+ 	http://lambdafunction.ca
+ 	
+ 	Copyright (c) 2013 Varun Vachhar
+ 	All rights reserved
+ ***********************************************/
 
 import netP5.*;
 import processing.core.*;
@@ -17,17 +24,17 @@ public class MainApp extends PApplet {
     int activeSong = 0;
     int trackToMonitor;
     boolean useSustain;
-    ArrayList<Song> songs;
-    Song song;
+    PyramidScene pyramidScene;
     
     
     //**********************************************************
     // SETUP
     //**********************************************************
     public void setup() {
-        size(1000, 700);
-        smooth();
+        size(1000, 700, OPENGL);
+        smooth(6);
         rectMode(CENTER);
+        noStroke();
         
         // Setup Midi Listener
         MidiBus.list();
@@ -43,18 +50,18 @@ public class MainApp extends PApplet {
 			notes[i] = new Note(this);
 		}
         
-        // Build Songs
-        songs = new ArrayList<Song>();
+        // Define and build the various Songs
         
-        songs.add(new Song(this,
+        pyramidScene = new PyramidScene(this,
+        		"Flying Pyramids",
         		notes,
-				new int[] {67}, //67, 63, 62, 60, 56, 55, 51, 50, 48, 44, 43, 39, 38, 36
-				1));
+				new int[] { 67, 63, 62, 60, 56, 55, 51, 50, 48, 44, 43, 39, 38, 36 },
+				1);
         
         // Choose initial track to monitor
-        song = songs.get(activeSong);
-        trackToMonitor = song.t;
+        trackToMonitor = pyramidScene.t;
     } 
+    
     
     //**********************************************************
     // DRAW
@@ -65,13 +72,32 @@ public class MainApp extends PApplet {
 	    for (int i = 0; i < notes.length; i++) {
 	    	notes[i].update();
 		}
+	    lights();
 	    
-	    song.draw();
+	    // Render the active scene
+   	 	switch (activeSong) {
+			case 0:
+				pyramidScene.draw();
+				// Display window title with frame-rate, etc.
+			    frame.setTitle("Tabla Visuals | " + pyramidScene.name + " | " + (int)frameRate + " fps"); 
+				break;
+			
+			case 1:
+				break;
+	
+			case 2:
+				break;
+				
+			default:
+				System.out.print("Scene" + activeSong  + ": not found");
+				break;
+		}
+	    
     }
     
     
-    public void changeSong() {
-    	song = songs.get(activeSong);
+    public void changeScene(int newSceneNumber) {
+    	activeSong = newSceneNumber;
     }
     
     
@@ -92,10 +118,6 @@ public class MainApp extends PApplet {
     //**********************************************************
     // Handle OSC Calls
     //**********************************************************
-//    public void oscEvent(OscMessage theOscMessage) {
-//    	println("addrpattern: "+theOscMessage.addrPattern());
-//	}
-    
     public void meters(int track, int channel, float value) {
     	if (track == trackToMonitor) {
     		amplitude = value;
@@ -105,7 +127,7 @@ public class MainApp extends PApplet {
     
     
     //**********************************************************
-    // Input Handelers
+    // Input Handlers
     //**********************************************************
     public void keyPressed() {
     	if (key == 's' || key =='S') {
