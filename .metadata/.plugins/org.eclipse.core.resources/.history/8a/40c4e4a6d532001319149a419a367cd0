@@ -1,0 +1,5 @@
+
+public class Properties {
+	public static int a;
+	public static int b;
+}

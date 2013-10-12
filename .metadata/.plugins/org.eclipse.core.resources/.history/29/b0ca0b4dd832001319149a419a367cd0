@@ -1,0 +1,6 @@
+
+public class Properties {
+    // Properties
+    boolean useSustain = false;
+    public static int PYRAMID_MODE = 1;
+}

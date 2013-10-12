@@ -1,90 +1,149 @@
 /***********************************************
- Original Code From:
- Custom 3D Geometry by Amnon Owed (May 2013)
- https://github.com/AmnonOwed
- http://vimeo.com/amnon
+ 	Based on:
+ 	Custom 3D Geometry by Amnon Owed (May 2013)
+ 	https://github.com/AmnonOwed
+ 	http://vimeo.com/amnon
  ***********************************************/
+
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.core.PConstants;
 
-// custom class to create a flying pyramid
 public class Pyramid {
 	PApplet p;
 	PVector[] v;
 	int[] c = new int[5]; 
-	float ptHeight, ptRadius;
+	float origPyHeight, origPyRadius;
+	float pyHeight, pyRadius;
 	float speed, transparency; 
-	float x, y, z; 
+	PVector pos; 
+	float rotX, rotY, rotZ; 
 	float MAXSPEED = 50;
-	boolean doFly;
+	int solidColor;
 
-	Pyramid(PApplet _p, float ptHeight, float ptRadius, boolean _doFly) {
+	Pyramid(PApplet _p, float _pyHeight, float _pyRadius, int _c) {
 		
 		p = _p;
 		v = new PVector[5];
-		this.ptHeight = ptHeight/2; 
-		this.ptRadius = ptRadius; 
+		origPyHeight = pyHeight = _pyHeight; 
+		origPyRadius = pyRadius = _pyRadius; 
 		speed = p.random(MAXSPEED/8, MAXSPEED); 
-		createPyramid(); 
-		z = p.random(-5000, 750); 
-		doFly = _doFly;
-		reset(); 
+		updatePyramid(); 
+		pos = new PVector(p.width/2, p.height/2, -1000);
+		transparency = 255;
+		rotX = p.random(-2*p.width, 3*p.width); 
+		rotY = p.random(-2*p.height, 2*p.height);
+		rotZ = p.random(-2*p.width, 3*p.width);
+		solidColor = _c;
 	}
 
-	void createPyramid() {
-		v[0] = new PVector(0, -ptHeight, 0);                                      							               // top of the pyramid
-		v[1] = new PVector(ptRadius*PApplet.cos(PConstants.HALF_PI), ptHeight, ptRadius*PApplet.sin(PConstants.HALF_PI));  // base point 1
-		v[2] = new PVector(ptRadius*PApplet.cos(PConstants.PI), ptHeight, ptRadius*PApplet.sin(PConstants.PI));            // base point 2
-		v[3] = new PVector(ptRadius*PApplet.cos(1.5f*PConstants.PI), ptHeight, ptRadius*PApplet.sin(1.5f*PConstants.PI));  // base point 3
-		v[4] = new PVector(ptRadius*PApplet.cos(PConstants.TWO_PI), ptHeight, ptRadius*PApplet.sin(PConstants.TWO_PI));    // base point 4
+	void updatePyramid() {
+//		v[0] = Properties.PYRAMID_MODE == 0 ? new PVector(0, pyHeight, 0) : new PVector(0, -pyHeight, 0);
+		v[0] = new PVector(0, pyHeight, 0);
+		v[1] = new PVector(pyRadius*PApplet.cos(PConstants.HALF_PI), origPyHeight, pyRadius*PApplet.sin(PConstants.HALF_PI));  // base point 1
+		v[2] = new PVector(pyRadius*PApplet.cos(PConstants.PI), origPyHeight, pyRadius*PApplet.sin(PConstants.PI));            // base point 2
+		v[3] = new PVector(pyRadius*PApplet.cos(1.5f*PConstants.PI), origPyHeight, pyRadius*PApplet.sin(1.5f*PConstants.PI));  // base point 3
+		v[4] = new PVector(pyRadius*PApplet.cos(PConstants.TWO_PI), origPyHeight, pyRadius*PApplet.sin(PConstants.TWO_PI));    // base point 4
+		
+		// Normalize points to the surface of a square
+		for (int i = 1; i < v.length; i++) {
+			v[0].normalize();
+			v[0].mult(origPyHeight);
+		}
+		
+		v[0].normalize();
+		v[0].mult(pyHeight);
 	}
-	
+
 	void update(float d) {
-		respondToMusic(d);
-		if(doFly) fly();
-		display();
+		pyHeight = (1.0f+d+0.05f)*origPyHeight;
+		pyRadius = (1.0f+d/2.0f)*origPyRadius;
+		updatePyramid();
+		switch (Properties.PYRAMID_MODE) {
+		case 1:
+			if(pyHeight>=1.1f*origPyHeight) display(d);
+			break;
+		case 2:
+			display(d);
+			break;
+		default:
+			if(pyHeight>=1.1f*origPyHeight) display(d);
+			break;
+		}
+		
+//		if(p.frameCount%60 == 0) reset();
 	}
 	
-	void respondToMusic(float d) {
-//		ptRadius = ptRadius + PApplet.map(d, 0, 1, 10, 20);
-		float adjustedHeight = (1.0f+d)*ptHeight;
-		float adjustedRadius = (1.0f+d/2.0f)*ptHeight;
-		v[0] = new PVector(0, -adjustedHeight, 0);                                      							               // top of the pyramid
-		v[1] = new PVector(adjustedRadius*PApplet.cos(PConstants.HALF_PI), adjustedHeight, adjustedRadius*PApplet.sin(PConstants.HALF_PI));  // base point 1
-		v[2] = new PVector(adjustedRadius*PApplet.cos(PConstants.PI), adjustedHeight, adjustedRadius*PApplet.sin(PConstants.PI));            // base point 2
-		v[3] = new PVector(adjustedRadius*PApplet.cos(1.5f*PConstants.PI), adjustedHeight, adjustedRadius*PApplet.sin(1.5f*PConstants.PI));  // base point 3
-		v[4] = new PVector(adjustedRadius*PApplet.cos(PConstants.TWO_PI), adjustedHeight, adjustedRadius*PApplet.sin(PConstants.TWO_PI));    // base point 4
+	void display(float d) {
+		p.pushMatrix(); 
+			p.translate(pos.x, pos.y, -2000);
+			
+			if(Properties.ROTATE_PYRAMIDS) {
+				p.rotateY(rotY + p.frameCount*0.02f); 
+				p.rotateX(rotX + p.frameCount*0.01f); 
+				p.rotateZ(rotZ + p.frameCount*0.01f);
+			} else {
+				p.rotateY(rotY); 
+				p.rotateX(rotX); 
+				p.rotateZ(rotZ); 
+			}
+			
+			// draw the 4 side triangles of the pyramid
+			p.fill(solidColor);
+			if(d>0.5) {
+				p.stroke(0xFFECF0F1);
+			} else {
+				p.stroke(255, 15);
+			}
+			p.beginShape(PConstants.TRIANGLE_FAN); 
+				for (int i=0; i<5; i++) {
+					p.vertex(v[i].x, v[i].y, v[i].z); 
+				}
+				// add the 'first base vertex' to close the shape
+				p.vertex(v[1].x, v[1].y, v[1].z);
+			p.endShape(); 
+	
+			// draw the base quad of the pyramid
+			p.beginShape(PConstants.QUADS);
+				for (int i=1; i<5; i++) {
+					p.vertex(v[i].x, v[i].y, v[i].z);
+				}
+			p.endShape(); 
+
+		p.popMatrix(); 
 	}
 
-	void fly() {
-		z += speed; 
-		// if beyond the camera, reset() and start again
-		if (z > 750) { z = -5000; reset(); } 
-		// far away slowly increase the transparency, within range is fully opaque
-		transparency = z < -2500 ? PApplet.map(z, -5000, -2500, 0, 255) : 255; 
-	}
-
-	void display() {
-		p.noStroke();
+	void displayGradient() {
+//		transparency = pos.z < -2500 ? PApplet.map(pos.z, -5000, -2500, 0, 255) : 255;
 		p.pushMatrix(); 
 
-			p.translate(x, y, z); 
-			p.rotateY(x + p.frameCount*0.01f); 
-			p.rotateX(y + p.frameCount*0.02f); 
-	
+			p.translate(pos.x, pos.y, -2000);
+			
+			if(Properties.ROTATE_PYRAMIDS) {
+				p.rotateY(rotY + p.frameCount*0.02f); 
+				p.rotateX(rotX + p.frameCount*0.01f); 
+				p.rotateZ(rotZ + p.frameCount*0.01f);
+			} else {
+				p.rotateY(rotY); 
+				p.rotateX(rotX); 
+				p.rotateZ(rotZ); 
+			}
+			
+			p.fill(0);
 			// draw the 4 side triangles of the pyramid
 			p.beginShape(PConstants.TRIANGLE_FAN); 
 				for (int i=0; i<5; i++) {
-					p.fill(c[i], transparency); // use the color, but with the given z-based transparency
-					p.vertex(v[i].x, v[i].y, v[i].z); // set the vertices based on the object coordinates defined in the createShape() method
+					// use the color, but with the given z-based transparency
+					p.fill(p.random(255), transparency); 
+					// set the vertices based on the object coordinates defined in the createShape() method
+					p.vertex(v[i].x, v[i].y, v[i].z); 
 				}
 				// add the 'first base vertex' to close the shape
 				p.fill(c[1], transparency);
 				p.vertex(v[1].x, v[1].y, v[1].z);
 			p.endShape(); 
 	
-			// draw the base QUAD of the pyramid
+			// draw the base quad of the pyramid
 			p.fill(c[1], transparency);
 			p.beginShape(PConstants.QUADS);
 				for (int i=1; i<5; i++) {
@@ -96,8 +155,6 @@ public class Pyramid {
 	}
 	
 	void reset() {
-		x = p.random(-2*p.width, 3*p.width); 
-		y = p.random(-p.height, 2*p.height); 
 		c[0] = p.color(p.random(150, 255), p.random(150, 255), p.random(150, 255)); 
 		// randomly set the 4 colors in the base of the shape
 		for (int i=1; i<5; i++) {

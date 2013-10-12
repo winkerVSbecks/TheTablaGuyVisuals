@@ -1,14 +1,13 @@
 /***********************************************
- Original Code From:
- Custom 3D Geometry by Amnon Owed (May 2013)
- https://github.com/AmnonOwed
- http://vimeo.com/amnon
+ 	Based on:
+ 	Custom 3D Geometry by Amnon Owed (May 2013)
+ 	https://github.com/AmnonOwed
+ 	http://vimeo.com/amnon
  ***********************************************/
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.core.PConstants;
 
-// custom class to create a flying pyramid
 public class FlyingPyramid {
 	PApplet p;
 	PVector[] v;
@@ -41,7 +40,7 @@ public class FlyingPyramid {
 	void update(float d) {
 		respondToMusic(d);
 		fly();
-		display();
+		display(d);
 	}
 	
 	void respondToMusic(float d) {
@@ -61,36 +60,96 @@ public class FlyingPyramid {
 		// far away slowly increase the transparency, within range is fully opaque
 		transparency = z < -2500 ? PApplet.map(z, -5000, -2500, 0, 255) : 255; 
 	}
-
-	void display() {
-		p.stroke(255, 10);
+	
+	void display(float d) {
 		p.pushMatrix(); 
-
-			p.translate(x, y, z); 
-			p.rotateY(x + p.frameCount*0.01f); 
-			p.rotateX(y + p.frameCount*0.02f); 
-	
-			// draw the 4 side triangles of the pyramid
-			p.beginShape(PConstants.TRIANGLE_FAN); 
-				for (int i=0; i<5; i++) {
-					p.fill(c[i], transparency); // use the color, but with the given z-based transparency
-					p.vertex(v[i].x, v[i].y, v[i].z); // set the vertices based on the object coordinates defined in the createShape() method
-				}
-				// add the 'first base vertex' to close the shape
+			if(d<0.1) {
+				p.strokeWeight(1);
+				p.stroke(0x44BDC3C7);
+				p.fill(0xFFECF0F1);
+				
+				p.translate(x, y, z); 
+				p.rotateY(x + p.frameCount*0.01f); 
+				p.rotateX(y + p.frameCount*0.02f); 
+		
+				// draw the 4 side triangles of the pyramid
+				p.beginShape(PConstants.TRIANGLE_FAN); 
+					for (int i=0; i<5; i++) {
+						p.vertex(v[i].x, v[i].y, v[i].z); // set the vertices based on the object coordinates defined in the createShape() method
+					}
+					// add the 'first base vertex' to close the shape
+					p.vertex(v[1].x, v[1].y, v[1].z);
+				p.endShape(); 
+		
+				// draw the base QUAD of the pyramid
+				p.beginShape(PConstants.QUADS);
+					for (int i=1; i<5; i++) {
+						p.vertex(v[i].x, v[i].y, v[i].z);
+					}
+				p.endShape(); 
+			} else {
+				p.stroke(255, 25);
+				p.translate(x, y, z); 
+				p.rotateY(x + p.frameCount*0.01f); 
+				p.rotateX(y + p.frameCount*0.02f); 
+		
+				// draw the 4 side triangles of the pyramid
+				p.beginShape(PConstants.TRIANGLE_FAN); 
+					for (int i=0; i<5; i++) {
+						p.fill(c[i], transparency); // use the color, but with the given z-based transparency
+						p.vertex(v[i].x, v[i].y, v[i].z); // set the vertices based on the object coordinates defined in the createShape() method
+					}
+					// add the 'first base vertex' to close the shape
+					p.fill(c[1], transparency);
+					p.vertex(v[1].x, v[1].y, v[1].z);
+				p.endShape(); 
+		
+				// draw the base QUAD of the pyramid
 				p.fill(c[1], transparency);
-				p.vertex(v[1].x, v[1].y, v[1].z);
-			p.endShape(); 
-	
-			// draw the base QUAD of the pyramid
-			p.fill(c[1], transparency);
-			p.beginShape(PConstants.QUADS);
-				for (int i=1; i<5; i++) {
-					p.vertex(v[i].x, v[i].y, v[i].z);
-				}
-			p.endShape(); 
+				p.beginShape(PConstants.QUADS);
+					for (int i=1; i<5; i++) {
+						p.vertex(v[i].x, v[i].y, v[i].z);
+					}
+				p.endShape(); 
+			}
 
 		p.popMatrix(); 
 	}
+
+//	void display(float d) {
+//		p.pushMatrix(); 
+//			if(d>0.5) {
+//				p.strokeWeight(2);
+//				p.stroke(255, 255, 0, 55);
+//			} else {
+////				p.stroke(255, 10);
+//				p.noStroke();
+//			}
+//			p.translate(x, y, z); 
+//			p.rotateY(x + p.frameCount*0.01f); 
+//			p.rotateX(y + p.frameCount*0.02f); 
+//	
+//			// draw the 4 side triangles of the pyramid
+//			p.beginShape(PConstants.TRIANGLE_FAN); 
+//				for (int i=0; i<5; i++) {
+//					p.fill(c[i], transparency); // use the color, but with the given z-based transparency
+//					p.vertex(v[i].x, v[i].y, v[i].z); // set the vertices based on the object coordinates defined in the createShape() method
+//				}
+//				// add the 'first base vertex' to close the shape
+//				p.fill(c[1], transparency);
+//				p.vertex(v[1].x, v[1].y, v[1].z);
+//			p.endShape(); 
+//	
+//			// draw the base QUAD of the pyramid
+//			p.fill(c[1], transparency);
+//			p.beginShape(PConstants.QUADS);
+//				for (int i=1; i<5; i++) {
+//					p.vertex(v[i].x, v[i].y, v[i].z);
+//				}
+//			p.endShape(); 
+//
+//		p.popMatrix(); 
+//	}
 	
 	void reset() {
 		x = p.random(-2*p.width, 3*p.width); 

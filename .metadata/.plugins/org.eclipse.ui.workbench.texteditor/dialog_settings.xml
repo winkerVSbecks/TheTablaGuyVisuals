@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="263" key="DIALOG_WIDTH"/>
+		<item value="184" key="DIALOG_Y_ORIGIN"/>
+		<item value="399" key="DIALOG_HEIGHT"/>
+		<item value="589" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="true" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="Properties.PYRAMID_MODE" key="selection"/>
+		<list key="findhistory">
+			<item value="MainApp.PYRAMID_MODE"/>
+			<item value="PYRAMID_MODE"/>
+			<item value="transparency"/>
+			<item value="pRadius"/>
+			<item value="pHeight"/>
+			<item value="p.sin"/>
+			<item value="p.cos"/>
+			<item value="PI"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Properties.PYRAMID_MODE"/>
+			<item value="MainApp.PYRAMID_MODE"/>
+			<item value="ptRadius"/>
+			<item value="ptHeight"/>
+			<item value="PApplet.sin"/>
+			<item value="PApplet.cos"/>
+			<item value="PConstants.PI"/>
+			<item value="PVector"/>
+		</list>
+	</section>
+</section>

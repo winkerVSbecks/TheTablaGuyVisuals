@@ -23,7 +23,6 @@ public class MainApp extends PApplet {
     float amplitude;
     int activeSong = 0;
     int trackToMonitor;
-    boolean useSustain;
     PyramidScene pyramidScene;
     
     
@@ -31,7 +30,7 @@ public class MainApp extends PApplet {
     // SETUP
     //**********************************************************
     public void setup() {
-        size(1000, 700, OPENGL);
+        size(1000, 700, P3D);
         smooth(6);
         rectMode(CENTER);
         noStroke();
@@ -60,6 +59,9 @@ public class MainApp extends PApplet {
         
         // Choose initial track to monitor
         trackToMonitor = pyramidScene.t;
+        
+       // perspective to see close shapes
+//       perspective(PConstants.PI/3.0f, (float) width/height, 1, 1000000);
     } 
     
     
@@ -67,12 +69,11 @@ public class MainApp extends PApplet {
     // DRAW
     //**********************************************************
     public void draw() {
-    	background(255);
+//    	background(255);
     	// Update all Midi Notes
 	    for (int i = 0; i < notes.length; i++) {
 	    	notes[i].update();
 		}
-	    lights();
 	    
 	    // Render the active scene
    	 	switch (activeSong) {
@@ -122,7 +123,7 @@ public class MainApp extends PApplet {
     	if (track == trackToMonitor) {
     		amplitude = value;
     	}
-    	// println("track: "+track+" channel: "+ channel+" value: "+value);
+    	 println("track: "+track+" channel: "+ channel+" value: "+value);
     }
     
     
@@ -130,9 +131,13 @@ public class MainApp extends PApplet {
     // Input Handlers
     //**********************************************************
     public void keyPressed() {
-    	if (key == 's' || key =='S') {
-    		useSustain = !useSustain;
-    	}
+    	if (key == 's' || key =='S') Properties.USE_SUSTAIN = !Properties.USE_SUSTAIN;
+    	
+    	if (key == '1') Properties.PYRAMID_MODE = 1;
+    	if (key == '2') Properties.PYRAMID_MODE = 2;
+    	if(key == 'r' || key =='R') Properties.ROTATE_PYRAMIDS = !Properties.ROTATE_PYRAMIDS;
+    	if(key == 'f' || key =='F')Properties.FLYING_PYRAMIDS = !Properties.FLYING_PYRAMIDS;
+    	if(key == 'l' || key =='l')Properties.LONE_PYRAMID = !Properties.LONE_PYRAMID;
     }
     
     

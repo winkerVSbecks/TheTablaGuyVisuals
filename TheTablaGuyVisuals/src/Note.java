@@ -53,7 +53,7 @@ public class Note {
 		if (isOn) {
 			attack = p.amplitude;
 		} else {
-			if (!p.useSustain) {
+			if (!Properties.USE_SUSTAIN) {
 				if(attack > 0) { attack-=0.1f; 
 				} else { attack = 0.0f; }
 			} else {
