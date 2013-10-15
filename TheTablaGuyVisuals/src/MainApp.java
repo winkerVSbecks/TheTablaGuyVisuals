@@ -20,10 +20,14 @@ public class MainApp extends PApplet {
     NetAddress myRemoteLocation;
     
     Note[] notes = new Note [128];
-    float amplitude;
     int activeSong = 0;
     int trackToMonitor;
     PyramidScene pyramidScene;
+    
+    // HUD
+    PGraphics gui;
+    int on = 0xFF2ECC71; 
+    int off = 0xFFE74C3C;
     
     
     //**********************************************************
@@ -31,9 +35,13 @@ public class MainApp extends PApplet {
     //**********************************************************
     public void setup() {
         size(1000, 700, P3D);
+//    	size(1440, 900, P3D);
         smooth(6);
         rectMode(CENTER);
         noStroke();
+        
+        gui = createGraphics(264, 153);
+        updateGUI();
         
         // Setup Midi Listener
         MidiBus.list();
@@ -49,8 +57,7 @@ public class MainApp extends PApplet {
 			notes[i] = new Note(this);
 		}
         
-        // Define and build the various Songs
-        
+        // Define and build the various Scenes/Songs
         pyramidScene = new PyramidScene(this,
         		"Flying Pyramids",
         		notes,
@@ -61,7 +68,17 @@ public class MainApp extends PApplet {
         trackToMonitor = pyramidScene.t;
         
        // perspective to see close shapes
-//       perspective(PConstants.PI/3.0f, (float) width/height, 1, 1000000);
+       perspective(PConstants.PI/3.0f, (float) width/height, 1, 1000000);
+       
+       // Textures
+       for (int i = 0; i < Properties.textures.length; i++) {
+    	   Properties.tex[i] = loadImage(Properties.textures[i]);
+       }
+       textureMode(PConstants.NORMAL);
+       
+       ambientLight(253, 254, 249);
+	   specular(253, 254, 249);
+	   translate(20, 50, 0);
     } 
     
     
@@ -93,12 +110,45 @@ public class MainApp extends PApplet {
 				System.out.print("Scene" + activeSong  + ": not found");
 				break;
 		}
-	    
+   	 	
+   	 	// Draw GUI
+   	 	noLights();
+	   	if(Properties.SHOW_GUI) image(gui, width-304, height-193); 
     }
     
     
     public void changeScene(int newSceneNumber) {
     	activeSong = newSceneNumber;
+    }
+    
+    
+    // Draw/Update the GUI to show a list of properties available and how to turn them on/off
+    public void updateGUI() {
+   	 	int spacing = 20;
+		gui.beginDraw();
+			gui.noStroke();
+			gui.background(236, 240, 241);
+			gui.stroke(189, 195, 199);
+			gui.fill(236, 240, 241);
+			gui.rect(0, 0, gui.width-1, gui.height-1);
+			// Properties
+			gui.fill(0xFF2C3E50);
+			gui.text("Pyramids Sphere: ", 10, spacing*1);
+			gui.text("Rotate Pyramids In Sphere", 10, spacing*2);
+			gui.text("Show/Hide Un-triggered Pyramids: ", 10, spacing*3);
+			gui.text("Toggle Inward/Outward: ", 10, spacing*4);
+			gui.text("Lone Pyramid: ", 10, spacing*5);
+			gui.text("Flying Pyramids: ", 10, spacing*6);
+			gui.text("Show/Hide Help Menu: ", 10, spacing*7);
+			// Keys and states
+			gui.fill(Properties.PYRAMIDS_SPHERE ? on: off); gui.text("S", 245, spacing*1);
+			gui.fill(Properties.DO_ROTATE_PYRAMIDS ? on: off); gui.text("R", 245, spacing*2);
+			gui.fill(Properties.SHOW_UNTRIGGERED ? on: off); gui.text("T", 245, spacing*3);
+			gui.fill(Properties.IS_INWARD ? on: off); gui.text("I", 245, spacing*4);
+			gui.fill(Properties.LONE_PYRAMID ? on: off); gui.text("L", 245, spacing*5);
+			gui.fill(Properties.FLYING_PYRAMIDS ? on: off); gui.text("F", 245, spacing*6); 
+			gui.fill(0xFF9B59B6); gui.text("?", 245, spacing*7);
+		gui.endDraw();
     }
     
     
@@ -121,9 +171,9 @@ public class MainApp extends PApplet {
     //**********************************************************
     public void meters(int track, int channel, float value) {
     	if (track == trackToMonitor) {
-    		amplitude = value;
+    		Properties.AMPLITUDE = value;
     	}
-    	 println("track: "+track+" channel: "+ channel+" value: "+value);
+    	// println("track: "+track+" channel: "+ channel+" value: "+value);
     }
     
     
@@ -131,13 +181,28 @@ public class MainApp extends PApplet {
     // Input Handlers
     //**********************************************************
     public void keyPressed() {
-    	if (key == 's' || key =='S') Properties.USE_SUSTAIN = !Properties.USE_SUSTAIN;
-    	
-    	if (key == '1') Properties.PYRAMID_MODE = 1;
-    	if (key == '2') Properties.PYRAMID_MODE = 2;
-    	if(key == 'r' || key =='R') Properties.ROTATE_PYRAMIDS = !Properties.ROTATE_PYRAMIDS;
-    	if(key == 'f' || key =='F')Properties.FLYING_PYRAMIDS = !Properties.FLYING_PYRAMIDS;
-    	if(key == 'l' || key =='l')Properties.LONE_PYRAMID = !Properties.LONE_PYRAMID;
+    	// Audio
+    	if (key == 'u' || key =='U') Properties.USE_SUSTAIN = !Properties.USE_SUSTAIN;
+    	// Pyramids
+    	if(key == 't' || key == 'T') Properties.SHOW_UNTRIGGERED = !Properties.SHOW_UNTRIGGERED; 
+    	if(key == 'i' || key =='I') Properties.IS_INWARD = !Properties.IS_INWARD;
+    	if(key == 'r' || key =='R') Properties.DO_ROTATE_PYRAMIDS = !Properties.DO_ROTATE_PYRAMIDS;
+    	if(key == 's' || key =='S') { 
+    		Properties.PYRAMIDS_SPHERE = !Properties.PYRAMIDS_SPHERE; 
+    		Properties.LONE_PYRAMID = Properties.FLYING_PYRAMIDS = false;
+    	}
+    	if(key == 'f' || key =='F') {
+    		Properties.FLYING_PYRAMIDS = !Properties.FLYING_PYRAMIDS;
+    		Properties.LONE_PYRAMID = Properties.PYRAMIDS_SPHERE = false;
+    	}
+    	if(key == 'l' || key =='l') {
+    		Properties.LONE_PYRAMID = !Properties.LONE_PYRAMID;
+    		Properties.FLYING_PYRAMIDS = Properties.PYRAMIDS_SPHERE = false;
+    	}
+    	// Misc.
+    	if (key == '?') Properties.SHOW_GUI = !Properties.SHOW_GUI;
+    	// Update GUI to show state of various properties
+    	updateGUI();
     }
     
     
@@ -145,7 +210,7 @@ public class MainApp extends PApplet {
     // MAIN
     //**********************************************************
     public static void main(String args[]) {
-    	PApplet.main(new String[] { /*"--present",*/ "MainApp" });
+    	PApplet.main(new String[] { /*"--present",*/ "MainApp" }); /*"--present",*/
     }
 }
 

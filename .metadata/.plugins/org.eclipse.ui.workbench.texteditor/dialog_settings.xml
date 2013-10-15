@@ -3,26 +3,26 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="184" key="DIALOG_Y_ORIGIN"/>
-		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="589" key="DIALOG_X_ORIGIN"/>
+		<item value="399" key="DIALOG_HEIGHT"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Properties.PYRAMID_MODE" key="selection"/>
+		<item value="pers" key="selection"/>
 		<list key="findhistory">
+			<item value="pers"/>
+			<item value="p.stroke(255, 15);"/>
+			<item value="perspec"/>
+			<item value="prespective"/>
 			<item value="MainApp.PYRAMID_MODE"/>
 			<item value="PYRAMID_MODE"/>
 			<item value="transparency"/>
 			<item value="pRadius"/>
-			<item value="pHeight"/>
-			<item value="p.sin"/>
-			<item value="p.cos"/>
-			<item value="PI"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Properties.PYRAMID_MODE"/>

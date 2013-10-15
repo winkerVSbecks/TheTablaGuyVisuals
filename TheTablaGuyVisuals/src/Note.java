@@ -36,14 +36,14 @@ public class Note {
 	// Handle MIDI note on
 	public void on() {
 		isOn = true;
-		ampStart = p.amplitude;
+		ampStart = Properties.AMPLITUDE;
 		fStart = p.frameCount;
 	}
 	
 	// Handle MIDI note off
 	public void off() {
 		isOn = false;
-		ampEnd = p.amplitude;
+		ampEnd = Properties.AMPLITUDE;
 		fEnd = p.frameCount;
 		sustain = Math.abs(ampStart-ampEnd)/(fEnd-fStart);
 	}
@@ -51,7 +51,7 @@ public class Note {
 	// Update attack and sustain values
 	public void update() {
 		if (isOn) {
-			attack = p.amplitude;
+			attack = Properties.AMPLITUDE;
 		} else {
 			if (!Properties.USE_SUSTAIN) {
 				if(attack > 0) { attack-=0.1f; 

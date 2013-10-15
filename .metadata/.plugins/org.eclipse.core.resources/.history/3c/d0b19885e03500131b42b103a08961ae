@@ -1,0 +1,16 @@
+
+public class Properties {
+    // AUDIO
+	public static float AMPLITUDE;
+    public static boolean USE_SUSTAIN = false;
+    // PYRAMIDS
+    public static boolean SHOW_UNTRIGGERED = false;
+    public static boolean PYRAMIDS_SPHERE = true;
+    public static boolean DO_ROTATE_PYRAMIDS = false;
+    public static boolean FLYING_PYRAMIDS = false;
+    public static boolean LONE_PYRAMID = false;
+    public static boolean IS_INWARD = false;
+    // Misc.
+    public static boolean SHOW_GUI = true;
+    public static PImage img = loadImage ("http://thirteen23.com/garage/2012/01/holiday-poster/02-6c817f04.jpg");
+}

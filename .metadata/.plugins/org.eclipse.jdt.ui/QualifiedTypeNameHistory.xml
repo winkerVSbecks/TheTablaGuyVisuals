@@ -20,8 +20,9 @@
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="PyramidScene"/>
 <fullyQualifiedTypeName name="processing.core.PVector"/>
-<fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="processing.core.PApplet"/>
+<fullyQualifiedTypeName name="FlyingPyramid"/>
 <fullyQualifiedTypeName name="Properties"/>
 </qualifiedTypeNameHistroy>

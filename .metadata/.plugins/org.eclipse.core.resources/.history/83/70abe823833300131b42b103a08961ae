@@ -1,0 +1,71 @@
+import java.util.ArrayList;
+
+import processing.core.PVector;
+import processing.core.PApplet;
+import processing.core.PConstants;
+
+public class Wiggler {
+  
+  // The PShape to be "wiggled"
+  float x, y;
+  
+  // For 2D Perlin noise
+  float yoff = 0;
+  float yStep;
+  float rad;
+  
+  // We are using an ArrayList to keep a duplicate copy of vertices original locations.
+  ArrayList<PVector> original;
+
+  Wiggler(PApplet p, float _rad, float _yStep) {
+    x = p.width/2;
+    y = p.height/2; 
+    rad = _rad;
+    yStep = _yStep;
+
+    // The "original" locations of the vertices make up a circle
+    original = new ArrayList<PVector>();
+    for (float a = 0; a < PConstants.TWO_PI; a+=0.1) {
+      PVector v = PVector.fromAngle(a);
+      v.mult(rad);
+      original.add(v);
+    }
+  }
+
+  void wiggle() {
+    float xoff = 0;
+    // Apply an offset to each vertex
+    for (FlyingPyramid fpy : original) {
+		fpy.update(note.getAttack());
+	}
+    
+    
+    for (int i = 0; i < s.getVertexCount(); i++) {
+      // Calculate a new vertex location based on noise around "original" location
+      PVector pos = original.get(i);
+      float a = TWO_PI*noise(xoff,yoff);
+      PVector r = PVector.fromAngle(a);
+      r.mult(6);
+      r.add(pos);
+      // Set the location of each vertex to the new one
+      s.setVertex(i, r.x, r.y);
+      // increment perlin noise x value
+      xoff+= 0.5;
+    }
+    // Increment perlin noise y value
+    yoff += yStep;
+  }
+
+  void display() {
+    pushMatrix();
+    translate(x, y);
+    shape(s);
+    for (int i = 0; i < s.getVertexCount(); i++) {
+      stroke(50);
+      strokeWeight(2);
+      point(s.getVertex(i).x, s.getVertex(i).y);
+      strokeWeight(1);
+    }
+    popMatrix();
+  }
+}
