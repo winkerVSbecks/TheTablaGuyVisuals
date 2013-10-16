@@ -8,6 +8,7 @@
 **********************************************************************************************/	
 
 import java.util.ArrayList;
+
 import processing.core.*;
 
 public class PyramidScene {
@@ -18,7 +19,7 @@ public class PyramidScene {
 	PApplet p;
 	String name;
 	ArrayList<Cluster> clusters;
-	FlyingPyramid lonePyramid;
+	LonePyramid lonePyramid;
 	PShape ball;
 	boolean once = true;
 		
@@ -42,7 +43,7 @@ public class PyramidScene {
 		// Build lone pyramid
 		float r = p.random(25, 200);
 	    float f = p.random(2, 5);
-	    lonePyramid = new FlyingPyramid(p, f*r, r);
+	    lonePyramid = new LonePyramid(p, f*r, r, colors);
 	}
 	
 	public void draw() {
