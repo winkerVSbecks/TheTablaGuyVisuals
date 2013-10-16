@@ -10,30 +10,31 @@ public class Properties {
     public static boolean DO_ROTATE_PYRAMIDS = false;
     public static boolean FLYING_PYRAMIDS = false;
     public static boolean LONE_PYRAMID = false;
+    public static boolean SPECTRUM_PYRAMID = false;
     public static boolean IS_INWARD = false;
     public static boolean IS_TEXTURE = false;
     // Misc.
     public static boolean SHOW_GUI = true;
     public static PImage[] tex = new PImage[14];
-//    public static String[] textures = { 
-//    	"dribbbles_13.jpg",
-//    	"Green-Pills-550x455.png",
-//    	"visual_experimental_iterations_series43_v-47.png",
-//    	"800_1x.jpg",
-//    	"screen_shot_2013-05-10_at_4.16.39_pm.png",
-//    	"geometry2.jpg",
-//    	"crystal2_dribbble.png",
-//    	"shot_1300433200.jpg",
-//    	"121212.jpg",
-//    	"triangles.png",
-//    	"0.png",
-//    	"grafic.jpg",
-//    	"rzzle_dzzle.png",
-//    	"loop.jpg"
-//    };
     public static String[] textures = { 
-    	"flat.png"
+    	"dribbbles_13.jpg",
+    	"Green-Pills-550x455.png",
+    	"visual_experimental_iterations_series43_v-47.png",
+    	"800_1x.jpg",
+    	"screen_shot_2013-05-10_at_4.16.39_pm.png",
+    	"geometry2.jpg",
+    	"crystal2_dribbble.png",
+    	"shot_1300433200.jpg",
+    	"121212.jpg",
+    	"triangles.png",
+    	"0.png",
+    	"grafic.jpg",
+    	"rzzle_dzzle.png",
+    	"loop.jpg"
     };
+//    public static String[] textures = { 
+//    	"flat.png"
+//    };
 }
 
 // Pattern

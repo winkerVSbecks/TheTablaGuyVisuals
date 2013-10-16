@@ -90,12 +90,12 @@ public class MainApp extends PApplet {
     //**********************************************************
     public void draw() {
     	// Camera
-//    	float orbitRadius = 500;
+//    	float orbitRadius = 1000;
 //    	float ypos = sin(radians(rotation*rots[0]))*orbitRadius; 
 //    	float xpos = cos(radians(rotation*rots[1]))*orbitRadius;
 //    	float zpos = cos(radians(rotation*rots[2]))*orbitRadius;
 //    	beginCamera();
-//    	camera(xpos, ypos, zpos, width/2, height/2, -2000, 0, -1, 0);
+//    	camera(xpos, ypos, zpos, width/2, height/2, -4000, 0, -1, 0);
 //    	rotation++;
     	
     	// Update all Midi Notes
@@ -193,17 +193,21 @@ public class MainApp extends PApplet {
     	if(key == 'i' || key =='I') Properties.IS_INWARD = !Properties.IS_INWARD;
     	if(key == 'r' || key =='R') Properties.DO_ROTATE_PYRAMIDS = !Properties.DO_ROTATE_PYRAMIDS;
     	if(key == 'b' || key == 'B') Properties.IS_TEXTURE = !Properties.IS_TEXTURE;
+    	if(key == 'p' || key == 'P') {
+    		Properties.SPECTRUM_PYRAMID = true;
+    		Properties.PYRAMIDS_SPHERE = Properties.LONE_PYRAMID = Properties.FLYING_PYRAMIDS = false;
+    	}
     	if(key == 's' || key =='S') { 
     		Properties.PYRAMIDS_SPHERE = true; 
-    		Properties.LONE_PYRAMID = Properties.FLYING_PYRAMIDS = false;
+    		Properties.SPECTRUM_PYRAMID = Properties.LONE_PYRAMID = Properties.FLYING_PYRAMIDS = false;
     	}
     	if(key == 'f' || key =='F') {
     		Properties.FLYING_PYRAMIDS = true;
-    		Properties.LONE_PYRAMID = Properties.PYRAMIDS_SPHERE = false;
+    		Properties.SPECTRUM_PYRAMID  = Properties.LONE_PYRAMID = Properties.PYRAMIDS_SPHERE = false;
     	}
     	if(key == 'l' || key =='l') {
     		Properties.LONE_PYRAMID = true;
-    		Properties.FLYING_PYRAMIDS = Properties.PYRAMIDS_SPHERE = false;
+    		Properties.SPECTRUM_PYRAMID  = Properties.FLYING_PYRAMIDS = Properties.PYRAMIDS_SPHERE = false;
     	}
     	// Misc.
     	if (key == '?') Properties.SHOW_GUI = !Properties.SHOW_GUI;
@@ -219,7 +223,6 @@ public class MainApp extends PApplet {
     	PApplet.main(new String[] { /*"--present",*/ "MainApp" }); /*"--present",*/
     }
 }
-
 
 
 

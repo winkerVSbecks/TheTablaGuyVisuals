@@ -22,17 +22,19 @@ public class Pyramid {
 	int solidColor;
 	float scl = 1.0f;
 	int tt;
+	int type;
 
 	Pyramid(PApplet _p, float _pyHeight, float _pyRadius, int _c, int _tt) {
-		
 		p = _p;
 		v = new PVector[5];
 		pyHeight = _pyHeight;
-		origPyHeight = pyHeight;  //spread out -> p.random(3.0f, 7.0f)*pyHeight; 
+		//origPyHeight = pyHeight;  //spread out -> p.random(3.0f, 7.0f)*pyHeight; 
+		origPyHeight = p.random(3.0f, 7.0f)*pyHeight;
 		pyRadius = 2.0f*_pyRadius;
 		origPyRadius = pyRadius; 
 		// point all over the place -> pos = new PVector(p.width/2+p.random(-p.width, p.width), p.height/2+p.random(-p.height, p.height), -1000);
-		pos = new PVector(p.width/2, p.height/2, -2000);
+		pos = new PVector(p.width/2, p.height/2, -4000);
+		//pos = new PVector(p.width/2+p.random(-p.width, p.width), p.height/2+p.random(-p.height, p.height), -1000);
 		transparency = 255;
 		rotX = p.random(-2*p.width, 3*p.width); 
 		rotY = p.random(-2*p.height, 2*p.height);
@@ -40,6 +42,7 @@ public class Pyramid {
 		solidColor = _c;
 		tt = _tt;
 		updatePyramid();
+		type = (int) p.random(3);
 	}
 
 	void updatePyramid() {
@@ -47,7 +50,7 @@ public class Pyramid {
 //		if(Properties.IS_INWARD) { base = pyHeight; top = origPyHeight; }
 //		else { base = origPyHeight; top = pyHeight; }
 		
-		if(Properties.IS_INWARD) { base = origPyHeight + pyHeight/3; top = origPyHeight - 2*pyHeight/3; }
+		if(Properties.IS_INWARD) { base = origPyHeight + 2*pyHeight/3; top = origPyHeight - pyHeight/3; }
 		else { base = origPyHeight - pyHeight/3; top = origPyHeight + 2*pyHeight/3;  }
 				
 		v[0] = new PVector(0, top, 0);
@@ -69,16 +72,17 @@ public class Pyramid {
 
 	void update(float d) {
 		// Modify height and radius based on amplitude 
-//		pyHeight = (1.0f+d+0.05f)*origPyHeight;
-//		pyRadius = (1.0f+d/2.0f)*origPyRadius;
+		pyHeight = (d)*origPyHeight;
+		pyRadius = (1.0f+d/2.0f)*origPyRadius;
+		
 		// Recalculate the pyramid mesh
-//		updatePyramid();
+		updatePyramid();
 		
 		//scale it instead Ð no pyramid update needed
-		scl = 1.0f+d*0.75f;
+//		scl = 1.0f+d*0.75f;
 		
 		// Display all pyramids/only the ones which were triggered
-		if(Properties.IS_TEXTURE) {
+		if(Properties.IS_TEXTURE) { 
 			if(Properties.SHOW_UNTRIGGERED) displayTextured(d); else if(d>0.1f) displayTextured(d); 
 		} else {
 			if(Properties.SHOW_UNTRIGGERED) display(d); else if(d>0.1f) display(d);
@@ -91,6 +95,8 @@ public class Pyramid {
 //		transparency = PApplet.map(d, 0, 1, 0, 255);
 		transparency = 175;
  		p.pushMatrix(); 
+ 		if(type == 0) {
+ 			// --------------------- PYRAMID ---------------------
 			p.translate(pos.x, pos.y, -2000);
 			p.scale(scl);
 			// Rotate pyramids
@@ -124,6 +130,28 @@ public class Pyramid {
 					p.vertex(v[i].x, v[i].y, v[i].z);
 				}
 			p.endShape(); 
+ 		} else if (type==2) {
+				// --------------------- CUBE ---------------------
+ 				p.noStroke();
+// 				p.translate(v[0].x, v[0].y, v[0].z);
+ 				p.translate(pos.x, pos.y, -2000);
+ 				p.rotateY(rotY + p.frameCount*0.02f); 
+				p.rotateX(rotX + p.frameCount*0.01f); 
+				p.rotateZ(rotZ + p.frameCount*0.01f);
+				p.stroke(solidColor, transparency);
+				p.strokeWeight(80*(1+d));
+				p.point(v[0].x, v[0].y, v[0].z);
+				p.strokeWeight(1);
+	 	} else {
+				// --------------------- SPHERE ---------------------
+	 			p.noStroke();
+//				p.translate(v[0].x, v[0].y, v[0].z);
+				p.translate(2*pos.x, 2*pos.y, -2000);
+				p.rotateY(rotY + p.frameCount*0.02f); 
+				p.rotateX(rotX + p.frameCount*0.01f); 
+				p.rotateZ(rotZ + p.frameCount*0.01f);
+				p.sphere(pyRadius/4);
+	 	}
 		p.popMatrix(); 
 	}
 	

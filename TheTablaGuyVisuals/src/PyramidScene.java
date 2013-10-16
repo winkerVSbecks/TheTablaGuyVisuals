@@ -16,10 +16,12 @@ public class PyramidScene {
 	int t;
 	int[] range;
 	Note[] notes;
+	Note[] filteredNotes = new Note[14];
 	PApplet p;
 	String name;
 	ArrayList<Cluster> clusters;
 	LonePyramid lonePyramid;
+	SpectrumPyramid spectrumPyramid;
 	PShape ball;
 	boolean once = true;
 		
@@ -39,20 +41,24 @@ public class PyramidScene {
 		for(int i = 0; i < range.length; i++) {
 			Note note = notes[range[i]];
 			clusters.add( new Cluster(p, note, colors[i], i) );
+			filteredNotes[i] = note;
 		}
 		// Build lone pyramid
 		float r = p.random(25, 200);
 	    float f = p.random(2, 5);
 	    lonePyramid = new LonePyramid(p, f*r, r, colors);
+	    // Build Spectrum Pyramid
+	    spectrumPyramid = new SpectrumPyramid(p, f*r, r, colors, filteredNotes);
 	}
 	
 	public void draw() {
 		if(Properties.PYRAMIDS_SPHERE) {
 			// p.background(255, 255, 250);
 			// for flat shader
-			p.background(255, 255, 82);
+			//p.background(255, 255, 82);
 			// for other pattern
 			// p.background(230, 240, 168);
+			p.background(0xFFECF0F1);
 		} else {
 			// lightish grey
 			p.background(0xFFECF0F1);
@@ -61,6 +67,8 @@ public class PyramidScene {
 		if(once) { ball = createIcosahedron(6); once = false; }
 		if(Properties.LONE_PYRAMID) {
 			lonePyramid.update(notes[range[0]].getAttack());
+		} else if(Properties.SPECTRUM_PYRAMID) {
+			spectrumPyramid.update(notes[range[0]].getAttack());
 		} else {
 			for(Cluster cluster: clusters) {
 				cluster.draw();
@@ -75,12 +83,12 @@ public class PyramidScene {
 					if(Properties.IS_TEXTURE) { 
 						p.pointLight(255, 255, 82, 2*(p.width*PApplet.sin(p.frameCount*0.02f)-p.width/2), 2*(p.height*PApplet.cos(p.frameCount*0.03f)-p.height/2), 500);
 						p.scale(500); 
-						p.shape(ball); 
+						//p.shape(ball); 
 					} else { 
 						p.noStroke();
 						p.scale(1); 
 						p.fill(255, 255, 82);
-						p.sphere(550);
+						//p.sphere(550);
 					}
 				p.popMatrix();
 			}
