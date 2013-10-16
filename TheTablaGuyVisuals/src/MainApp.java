@@ -24,6 +24,9 @@ public class MainApp extends PApplet {
     int trackToMonitor;
     PyramidScene pyramidScene;
     
+    float rotation=0;
+    float[] rots = { random(1), random(1), random(1) };
+    
     // HUD
     PGraphics gui;
     int on = 0xFF2ECC71; 
@@ -76,17 +79,25 @@ public class MainApp extends PApplet {
        }
        textureMode(PConstants.NORMAL);
        
+       // Lighting
        ambientLight(253, 254, 249);
 	   specular(253, 254, 249);
-	   translate(20, 50, 0);
     } 
     
-    
+  
     //**********************************************************
     // DRAW
     //**********************************************************
     public void draw() {
-//    	background(255);
+    	// Camera
+//    	float orbitRadius = 500;
+//    	float ypos = sin(radians(rotation*rots[0]))*orbitRadius; 
+//    	float xpos = cos(radians(rotation*rots[1]))*orbitRadius;
+//    	float zpos = cos(radians(rotation*rots[2]))*orbitRadius;
+//    	beginCamera();
+//    	camera(xpos, ypos, zpos, width/2, height/2, -2000, 0, -1, 0);
+//    	rotation++;
+    	
     	// Update all Midi Notes
 	    for (int i = 0; i < notes.length; i++) {
 	    	notes[i].update();
@@ -99,17 +110,11 @@ public class MainApp extends PApplet {
 				// Display window title with frame-rate, etc.
 			    frame.setTitle("Tabla Visuals | " + pyramidScene.name + " | " + (int)frameRate + " fps"); 
 				break;
-			
-			case 1:
-				break;
-	
-			case 2:
-				break;
-				
 			default:
 				System.out.print("Scene" + activeSong  + ": not found");
 				break;
 		}
+//   	 	endCamera();
    	 	
    	 	// Draw GUI
    	 	noLights();
@@ -122,7 +127,7 @@ public class MainApp extends PApplet {
     }
     
     
-    // Draw/Update the GUI to show a list of properties available and how to turn them on/off
+    // Draw and update the GUI to show a list of properties available and how to turn them on/off
     public void updateGUI() {
    	 	int spacing = 20;
 		gui.beginDraw();
@@ -187,16 +192,17 @@ public class MainApp extends PApplet {
     	if(key == 't' || key == 'T') Properties.SHOW_UNTRIGGERED = !Properties.SHOW_UNTRIGGERED; 
     	if(key == 'i' || key =='I') Properties.IS_INWARD = !Properties.IS_INWARD;
     	if(key == 'r' || key =='R') Properties.DO_ROTATE_PYRAMIDS = !Properties.DO_ROTATE_PYRAMIDS;
+    	if(key == 'b' || key == 'B') Properties.IS_TEXTURE = !Properties.IS_TEXTURE;
     	if(key == 's' || key =='S') { 
-    		Properties.PYRAMIDS_SPHERE = !Properties.PYRAMIDS_SPHERE; 
+    		Properties.PYRAMIDS_SPHERE = true; 
     		Properties.LONE_PYRAMID = Properties.FLYING_PYRAMIDS = false;
     	}
     	if(key == 'f' || key =='F') {
-    		Properties.FLYING_PYRAMIDS = !Properties.FLYING_PYRAMIDS;
+    		Properties.FLYING_PYRAMIDS = true;
     		Properties.LONE_PYRAMID = Properties.PYRAMIDS_SPHERE = false;
     	}
     	if(key == 'l' || key =='l') {
-    		Properties.LONE_PYRAMID = !Properties.LONE_PYRAMID;
+    		Properties.LONE_PYRAMID = true;
     		Properties.FLYING_PYRAMIDS = Properties.PYRAMIDS_SPHERE = false;
     	}
     	// Misc.

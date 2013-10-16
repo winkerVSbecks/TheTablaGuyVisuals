@@ -15,7 +15,7 @@ public class Pyramid {
 	int[] c = new int[5]; 
 	float origPyHeight, origPyRadius;
 	float pyHeight, pyRadius;
-	float speed, transparency; 
+	float transparency; 
 	PVector pos; 
 	float rotX, rotY, rotZ; 
 	float MAXSPEED = 50;
@@ -28,11 +28,10 @@ public class Pyramid {
 		p = _p;
 		v = new PVector[5];
 		pyHeight = _pyHeight;
-		origPyHeight = pyHeight;  //p.random(1.0f, 3.0f)*pyHeight; 
+		origPyHeight = pyHeight;  //spread out -> p.random(3.0f, 7.0f)*pyHeight; 
 		pyRadius = 2.0f*_pyRadius;
 		origPyRadius = pyRadius; 
-		speed = p.random(MAXSPEED/8, MAXSPEED); 
-//		pos = new PVector(p.width/2+p.random(-p.width, p.width), p.height/2+p.random(-p.height, p.height), -1000);
+		// point all over the place -> pos = new PVector(p.width/2+p.random(-p.width, p.width), p.height/2+p.random(-p.height, p.height), -1000);
 		pos = new PVector(p.width/2, p.height/2, -2000);
 		transparency = 255;
 		rotX = p.random(-2*p.width, 3*p.width); 
@@ -72,17 +71,18 @@ public class Pyramid {
 		// Modify height and radius based on amplitude 
 //		pyHeight = (1.0f+d+0.05f)*origPyHeight;
 //		pyRadius = (1.0f+d/2.0f)*origPyRadius;
-		scl = 1.0f+d*0.75f;
-		
 		// Recalculate the pyramid mesh
 //		updatePyramid();
-		// Display all pyramids/only the ones which were triggered 
-//		if(Properties.SHOW_UNTRIGGERED) { display(d); } 
-//		else { /*if(pyHeight>=1.1f*origPyHeight) display(d);*/ if(d>0.1f) display(d); }
 		
-		if(Properties.SHOW_UNTRIGGERED) { displayTextured(d); } 
-		else { if(d>0.1f) displayTextured(d); }
+		//scale it instead Ð no pyramid update needed
+		scl = 1.0f+d*0.75f;
 		
+		// Display all pyramids/only the ones which were triggered
+		if(Properties.IS_TEXTURE) {
+			if(Properties.SHOW_UNTRIGGERED) displayTextured(d); else if(d>0.1f) displayTextured(d); 
+		} else {
+			if(Properties.SHOW_UNTRIGGERED) display(d); else if(d>0.1f) display(d);
+		}
 		// if(p.frameCount%60 == 0) reset();
 	}
 	
@@ -105,11 +105,12 @@ public class Pyramid {
 			}
 			// draw the 4 side triangles of the pyramid
 			p.fill(solidColor, transparency);
-			if(d>0.5) {
-				p.stroke(0xFFECF0F1);
-			} else {
-				p.stroke(255, 15);
-			}
+//			if(d>0.5) {
+//				p.stroke(0xFFECF0F1);
+//			} else {
+//				p.stroke(255, 15);
+//			}
+			p.stroke(255, 25);
 			p.beginShape(PConstants.TRIANGLE_FAN); 
 				for (int i=0; i<5; i++) {
 					p.vertex(v[i].x, v[i].y, v[i].z); 
@@ -145,6 +146,7 @@ public class Pyramid {
 			p.stroke(0x22ECF0F1);
 			p.beginShape(PConstants.TRIANGLE_FAN); 
 				p.texture(Properties.tex[tt]);
+				p.tint(solidColor);
 				for (int i=0; i<5; i++) {
 					float uu = 1.0f;
 					float vv = 1.0f;
@@ -171,15 +173,6 @@ public class Pyramid {
 				p.vertex(v[4].x, v[4].y, v[4].z, 1.0f, 1.0f);
 			p.endShape(); 
 		p.popMatrix(); 
-	}
-	
-
-	void reset() {
-		c[0] = p.color(p.random(150, 255), p.random(150, 255), p.random(150, 255)); 
-		// randomly set the 4 colors in the base of the shape
-		for (int i=1; i<5; i++) {
-			c[i] = p.color(p.random(255), p.random(255), p.random(255));
-		}
 	}
 	
 }
