@@ -13,7 +13,7 @@ import processing.core.*;
 
 public class PyramidScene {
 	
-	int t;
+	int track;
 	int[] range;
 	Note[] notes;
 	Note[] filteredNotes = new Note[14];
@@ -30,12 +30,12 @@ public class PyramidScene {
 					 0xFFAB948C, 0xFFF2F2F2, 0xFFFBD199, 0xFF981B48,
 					 0xFFFBF6A7, 0xFFF8B39B };  
 	
-	public PyramidScene(PApplet _p, String _name, Note[] _notes, int[] _range, int _t) {
+	public PyramidScene(PApplet _p, String _name, Note[] _notes, int[] _range, int _track) {
 		name = _name;
 		p = _p;
 		notes = _notes;
 		range = _range;
-		t = _t;
+		track = _track;
 		// Build clusters
 		clusters = new ArrayList<Cluster>();
 		for(int i = 0; i < range.length; i++) {

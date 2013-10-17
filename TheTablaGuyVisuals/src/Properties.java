@@ -14,7 +14,7 @@ public class Properties {
     public static boolean IS_INWARD = false;
     public static boolean IS_TEXTURE = false;
     // Misc.
-    public static boolean SHOW_GUI = true;
+    public static boolean SHOW_GUI = false;
     public static PImage[] tex = new PImage[14];
     public static String[] textures = { 
     	"dribbbles_13.jpg",

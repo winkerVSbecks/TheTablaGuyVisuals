@@ -1,0 +1,16 @@
+import processing.core.PApplet;
+
+
+public class RainScene {
+	
+	PApplet p;
+	String name;
+	int track;
+
+	public RainScene(PApplet _p, String _name, int _track) {
+		p = _p;
+		name = _name;
+		track = _track;
+	}
+	
+}

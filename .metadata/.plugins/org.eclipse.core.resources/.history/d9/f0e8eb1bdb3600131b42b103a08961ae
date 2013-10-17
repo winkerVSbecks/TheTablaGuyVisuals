@@ -1,0 +1,55 @@
+import processing.core.PApplet;
+import java.util.ArrayList;
+
+public class RainScene {
+
+	PApplet p;
+	String name;
+	int track;
+	int rainNum = 100;
+	ArrayList<Rain> drops = new ArrayList<Rain>();
+	ArrayList<Splash> splashes = new ArrayList<Splash>();
+	float reseed;
+
+	public RainScene(PApplet _p, String _name, int _track) {
+		p = _p;
+		name = _name;
+		track = _track;
+		reseed = p.random(0.2f);
+		drops.add( new Rain(p) );
+	}
+
+	public void draw() {
+		// Gives the drops a little tail
+		p.fill(0, 60);
+		p.noStroke();
+		p.rect(p.width/2, p.height/2, p.width, p.height);
+
+		// Add more drops every few milliseconds
+		if(p.frameCount % 20 == 0 && drops.size() < 150) drops.add( new Rain(p) );
+
+		// Update drop position, draw it. 
+		// Also, check for collision and trigger a splash
+		for(int i=0 ; i<drops.size() ; i++) {
+			Rain drop = (Rain) drops.get(i);
+			drop.draw();
+			if(drop.position.y >= p.height) {		      
+				for(int k = 0 ; k < p. random(5, 10) ; k++) {
+					splashes.add( new Splash(p, drop.position.x, p.height) );
+				}
+				drops.remove(i);
+				float rand = p.random(0, 100);
+				if (rand > 10 && drops.size() < 150)
+					drops.add( new Rain(p) );
+			}
+		}
+
+		// Draw splashes
+		for(int i=0 ; i<splashes.size() ; i++) {
+			Splash splash = (Splash) splashes.get(i);
+			splash.draw();
+			if (splash.position.y > p.height) splashes.remove(i);
+		}
+	}
+
+}

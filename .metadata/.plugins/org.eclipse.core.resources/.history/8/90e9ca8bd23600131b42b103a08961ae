@@ -1,0 +1,25 @@
+import processing.core.PApplet;
+import java.util.ArrayList;
+
+public class RainScene {
+	
+	PApplet p;
+	String name;
+	int track;
+	int rainNum = 100;
+	ArrayList<Rain> rain = new ArrayList<Rain>();
+	ArrayList<Splash> splash = new ArrayList<Splash>();
+	float current;
+	float reseed;
+
+	public RainScene(PApplet _p, String _name, int _track) {
+		p = _p;
+		name = _name;
+		track = _track;
+		reseed = p.random(0, 0.2f);
+	}
+	
+	public void draw() {
+		
+	}
+}
