@@ -1,4 +1,0 @@
-
-public class Properties {
-	public static int PYRAMID_MODE = 0;
-}

@@ -20,8 +20,9 @@ public class Rain {
 	void draw(float d) {
 		update();
 //		p.stroke(255, col);
-		p.stroke(PApplet.map(d, 0.5f, 0.8f, 0, 255), col);
+		p.stroke(PApplet.map(d, 0.6f, 0.8f, 0, 255), PApplet.map(d, 0.6f, 0.8f, 100, 255), PApplet.map(d, 0.6f, 0.8f, 200, 255), col);
 		p.strokeWeight(2);
+		if(d>0.8) p.stroke(0xFFF1C40F);
 		p.line(position.x,position.y,pposition.x,pposition.y);
 		//ellipse(position.x,position.y,5,5);
 	}

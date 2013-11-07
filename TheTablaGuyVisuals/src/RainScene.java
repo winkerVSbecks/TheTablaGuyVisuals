@@ -1,6 +1,5 @@
 import processing.core.PApplet;
 import processing.core.PConstants;
-
 import java.util.ArrayList;
 
 public class RainScene {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries version="2">
+    <library name="ProcessingCore" systemlibrary="false">
+        <archive javadoc="http://processing.org/reference/javadoc/core/" path="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/core.jar"/>
+        <archive path="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/gluegen-rt-natives-macosx-universal.jar"/>
+        <archive path="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/gluegen-rt.jar"/>
+        <archive path="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/jogl-all-natives-macosx-universal.jar"/>
+        <archive path="/Users/winkerVSbecks/Desktop/thetablaguy/tablaVisualsCode/p5v2libs/jogl-all.jar"/>
+    </library>
+</eclipse-userlibraries>
