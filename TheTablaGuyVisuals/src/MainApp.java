@@ -20,7 +20,7 @@ public class MainApp extends PApplet {
 	NetAddress myRemoteLocation;
 
 	Note[] notes = new Note [128];
-	int activeSong = 0;
+	int activeScene = 0;
 	int trackToMonitor;
 	PyramidScene pyramidScene;
 	RainScene rainScene;
@@ -62,11 +62,11 @@ public class MainApp extends PApplet {
 		}
 
 		// Define and build the various Scenes/Songs
-//		pyramidScene = new PyramidScene(this,
-//				"Flying Pyramids",
-//				notes,
-//				new int[] { 67, 63, 62, 60, 56, 55, 51, 50, 48, 44, 43, 39, 38, 36 },
-//				1);
+		pyramidScene = new PyramidScene(this,
+				"Flying Pyramids",
+				notes,
+				new int[] { 67, 63, 62, 60, 56, 55, 51, 50, 48, 44, 43, 39, 38, 36 },
+				1);
 		rainScene = new RainScene(this,
 				"Rain Drops and Umbrella",
 				0);
@@ -74,7 +74,7 @@ public class MainApp extends PApplet {
 		// Choose initial track to monitor
 		//trackToMonitor = pyramidScene.track;
 		trackToMonitor = rainScene.track;
-		activeSong = 1;
+		activeScene = 2;
 
 		// perspective to see close shapes
 		perspective(PConstants.PI/3.0f, (float) width/height, 1, 1000000);
@@ -109,19 +109,19 @@ public class MainApp extends PApplet {
 		}
 
 		// Render the active scene
-		switch (activeSong) {
-		case 0:
-			// pyramidScene.draw();
-			// Display window title with frame-rate, etc.
-			// frame.setTitle("Tabla Visuals | " + pyramidScene.name + " | " + (int)frameRate + " fps"); 
-			break;
+		switch (activeScene) {
 		case 1:
+			 pyramidScene.draw();
+			 // Display window title with frame-rate, etc.
+			 frame.setTitle("Tabla Visuals | " + pyramidScene.name + " | " + (int)frameRate + " fps"); 
+			break;
+		case 2:
 			rainScene.draw(Properties.AMPLITUDE);
 			// Display window title with frame-rate, etc.
 			frame.setTitle("Tabla Visuals | " + rainScene.name + " | " + (int)frameRate + " fps"); 
 			break;
 		default:
-			System.out.print("Scene" + activeSong  + ": not found");
+			System.out.print("Scene" + activeScene  + ": not found");
 			break;
 		}
 
@@ -132,7 +132,7 @@ public class MainApp extends PApplet {
 
 
 	public void changeScene(int newSceneNumber) {
-		activeSong = newSceneNumber;
+		activeScene = newSceneNumber;
 	}
 
 
@@ -223,6 +223,10 @@ public class MainApp extends PApplet {
 		if (key == '?') Properties.SHOW_GUI = !Properties.SHOW_GUI;
 		// Update GUI to show state of various properties
 		updateGUI();
+		
+		// Select scenes
+		if(key == '1') changeScene(1);
+		if(key == '2') changeScene(2);
 	}
 
 
